@@ -1,9 +1,9 @@
-import classNames from "classnames";
-
-import styles from "./Clock.module.scss";
 import { ClockPropsTypes } from "./Clock.types";
 import { useEffect, useState } from "react";
 import { degrees } from "./Clock.constants";
+
+import classNames from "classnames";
+import styles from "./Clock.module.scss";
 
 const Clock = ({ seconds, minute, hour }: ClockPropsTypes) => {
   const cx = classNames.bind(styles);

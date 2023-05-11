@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import axios from "axios";
+
 import Clock from "./components/Clock/Clock";
 import { FETCH_DELAY, fetchURL } from "./App.constants";
+
+import "./App.css";
 
 const App = () => {
   const [clockData, setClockData] = useState();

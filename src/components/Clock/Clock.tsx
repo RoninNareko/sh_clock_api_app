@@ -12,13 +12,11 @@ const Clock = ({ seconds, minute, hour }: ClockPropsTypes) => {
   const [clockMinutes, setClockMinutes] = useState<number>(0);
   const [clockHours, setClockHours] = useState<number>(0);
 
-  const deg = degrees;
-
   useEffect(() => {
     setClockHours(hour * 30);
-    setClockSeconds(seconds * deg);
-    setClockMinutes(minute * deg);
-  }, [seconds, minute, hour, deg]);
+    setClockSeconds(seconds * degrees);
+    setClockMinutes(minute * degrees);
+  }, [seconds, minute, hour]);
 
   return (
     <section>

@@ -5,6 +5,7 @@ import Clock from "./components/Clock/Clock";
 import { FETCH_DELAY, fetchURL } from "./App.constants";
 
 import "./App.css";
+import Semicircle from "./components/Semicircle/Semicircle";
 
 const App = () => {
   const [clockData, setClockData] = useState();
@@ -33,6 +34,7 @@ const App = () => {
     return (
       <div className="App">
         <Clock seconds={seconds} minute={minute} hour={hour} />
+        <Semicircle />
       </div>
     );
   }

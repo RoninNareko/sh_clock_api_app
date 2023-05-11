@@ -1,26 +1,25 @@
 import classNames from "classnames";
 
 import styles from "./Clock.module.scss";
+import { ClockPropsTypes } from "./Clock.types";
 import { useEffect, useState } from "react";
+import { degrees } from "./Clock.constants";
 
-export default function Clock() {
+const Clock = ({ seconds, minute, hour }: ClockPropsTypes) => {
   const cx = classNames.bind(styles);
 
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [hours, setHours] = useState(0);
-  const deg = 6;
+  const [clockSeconds, setClockSeconds] = useState<number>(0);
+  const [clockMinutes, setClockMinutes] = useState<number>(0);
+  const [clockHours, setClockHours] = useState<number>(0);
+
+  const deg = degrees;
+
   useEffect(() => {
-    setInterval(() => {
-      const day = new Date();
-      const hours = day.getHours() * 30;
-      const minutes = day.getMinutes() * deg;
-      const seconds = day.getSeconds() * deg;
-      setHours(hours);
-      setSeconds(seconds);
-      setMinutes(minutes);
-    }, 0);
-  }, []);
+    setClockHours(hour * 30);
+    setClockSeconds(seconds * deg);
+    setClockMinutes(minute * deg);
+  }, [seconds, minute, hour, deg]);
+
   return (
     <section>
       <div className={cx(styles.clock)}>
@@ -28,7 +27,7 @@ export default function Clock() {
           <div
             className={cx(styles.hours)}
             style={{
-              transform: `rotateZ(${hours + minutes / 2}deg)`,
+              transform: `rotateZ(${clockHours}deg)`,
             }}
           ></div>
         </div>
@@ -37,7 +36,7 @@ export default function Clock() {
           <div
             className={cx(styles.minutes)}
             style={{
-              transform: `rotateZ(${minutes}deg)`,
+              transform: `rotateZ(${clockMinutes}deg)`,
             }}
           ></div>
         </div>
@@ -46,11 +45,13 @@ export default function Clock() {
           <div
             className={cx(styles.seconds)}
             style={{
-              transform: `rotateZ(${seconds}deg)`,
+              transform: `rotateZ(${clockSeconds}deg)`,
             }}
           ></div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Clock;

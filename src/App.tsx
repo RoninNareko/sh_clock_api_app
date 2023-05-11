@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 import Clock from "./components/Clock/Clock";
+import { FETCH_DELAY, fetchURL } from "./App.constants";
 
-function App() {
-  return (
-    <div className="App">
-      <Clock />
-    </div>
-  );
-}
+const App = () => {
+  const [clockData, setClockData] = useState();
+
+  const fetchClockTime = async () => {
+    const fetchTimeInterval = setInterval(async () => {
+      try {
+        const res = await axios.get(fetchURL);
+        const { data } = res;
+
+        setClockData(data);
+      } catch (e) {
+        console.log(e);
+        clearInterval(fetchTimeInterval);
+      }
+    }, FETCH_DELAY);
+  };
+
+  useEffect(() => {
+    fetchClockTime();
+  }, []);
+
+  if (clockData) {
+    const { hour, minute, seconds } = clockData;
+
+    return (
+      <div className="App">
+        <Clock seconds={seconds} minute={minute} hour={hour} />
+      </div>
+    );
+  }
+  return <h1>initialization...</h1>;
+};
 
 export default App;
